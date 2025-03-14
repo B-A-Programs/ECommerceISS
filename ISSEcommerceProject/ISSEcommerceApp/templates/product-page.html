@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+
+      {% if success %}
+        <div class="alert alert-success" style="margin-top: 30px; text-align: center;" role="alert">{{ success }}</div>
+      {% else %}
+        {% if message %}
+          <div class="alert alert-danger" style="margin-top: 30px; text-align: center;" role="alert">{{ message }}</div>
+        {% endif %}
+      {% endif %}
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <img src="{{ product.image_adress }}" class="img-fluid" alt="">
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <!--Content-->
+          <div class="p-4">
+
+            <div class="mb-3">
+              {% if product.label != null %}
+                <span class="badge badge-pill {{ product.get_label_display }}-color" style="width: 150px; height: 30px; font-size: 20px; text-align: center;">
+                {% if product.label == "N" %}
+                  New
+                {% else %} 
+                  {% if product.label == "B" %}
+                    Best seller
+                  {% endif %}
+                {% endif %}
+                </span>
+              {% endif %}
+            </div>
+
+            <p class="lead">
+              <span>{{ product.price }}$</span>
+            </p>
+
+            <p class="lead font-weight-bold">Description</p>
+
+            <p>{{ product.description }}</p>
+
+            {% if request.user.is_authenticated %}
+              <form class="d-flex justify-content-left" action="" method="post">
+                {% csrf_token %}
+                <!-- Default input -->
+                <select class="form-control mr-1" style="width: 100px;" name="size">
+                  <option value="-1" disabled selected>Size</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                </select>
+                <input type="number" value="1" class="form-control" style="width: 100px" name="quantity">
+                <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
+                  <i class="fas fa-shopping-cart ml-1"></i>
+                </button>
+
+              </form>
+            {% endif %}
+
+          </div>
+          <!--Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <hr>
+
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 text-center">
+
+          <h4 class="my-4 h4">Additional information</h4>
+
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit
+            voluptates,
+            quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p>
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+
+{% endblock %}
