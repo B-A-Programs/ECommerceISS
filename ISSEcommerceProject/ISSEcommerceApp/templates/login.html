@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <main class="mt-5 pt-4">
+        <div class="container wow fadeIn"style="padding: 10px 30px; text-align: center;">
+            {% if message %}
+                <div class="alert alert-danger" style="margin-top: 30px;" role="alert">{{ message }}</div>
+            {% endif %}
+            
+            <h1 class="m-3"><strong>Log in</strong></h1>
+
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input autofocus class="form-control col-6" style="margin-left: 25%;" type="text" name="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input class="form-control col-6" style="margin-left: 25%;" type="password" name="password" placeholder="Password">
+                </div>
+                <button class="btn btn-lg" style="padding: 12px 30px; background-color: rgb(110, 71, 27); color: white;" type="submit">Log in</button>
+            </form>
+
+            Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+        </div>
+    </main>
+{% endblock %}

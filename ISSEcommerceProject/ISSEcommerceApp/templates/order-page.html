@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<!--Main layout-->
+<main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+
+      {% if success %}
+        <h2 class="my-5 h2 text-center">Thank you for ordering from us!</h2>
+        <div class="alert alert-success" style="margin-top: 30px; text-align: center;" role="alert">{{ success }}</div>
+      {% else %}
+      <!-- Heading -->
+      <h2 class="my-5 h2 text-center">Checkout form</h2>
+
+        <!--Card-->
+        <div class="card">
+
+            <!--Card content-->
+            <form class="card-body" action="{% url 'order' %}" method="post">
+                {% csrf_token %}
+                <!--address-->
+                <div class="md-form mb-2">
+                    <input type="text" id="address" name="address" class="form-control" placeholder="eg: 1234 Main St Suite 8, Ap 12" required>
+                    <label for="address">Address</label>
+                </div>
+
+                <!--Grid row-->
+                <div class="row">
+
+                    <!--Grid column-->
+                    <div class="md-form col-lg-6 col-md-12">
+
+                        <label for="country" style="position: relative; margin-bottom: 0;">Country</label>
+                        <input class="form-control" type="text" id="country" name="country" placeholder="eg: USA" required>
+
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="md-form col-lg-6 col-md-12">
+
+                        <label for="state" style="position: relative; margin-bottom: 0;">State/County</label>
+                        <input class="form-control" type="text" id="state" name="county" placeholder="eg: California" required>
+                
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="md-form col-lg-6 col-md-12">
+
+                        <label for="zip" style="position: relative; margin-bottom: 0;">Zip</label>
+                        <input type="text" class="form-control" id="zip" name="zip" placeholder="eg: 158209" required>
+                    
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="md-form col-lg-6 col-md-12">
+
+                        <label for="city" style="position: relative; margin-bottom: 0;">City</label>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="eg: Los Angeles" required>
+                    
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+                <hr class="mb-4">
+
+                <h3 style="text-align: center; color: rgb(49, 47, 47);">Your total is: ${{ total|stringformat:".0f" }}</h3>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Order</button>
+
+            </form>
+
+        </div>
+        {% endif %}
+
+    </div>
+</main>
+<!--Main layout-->
+
+{% endblock %}

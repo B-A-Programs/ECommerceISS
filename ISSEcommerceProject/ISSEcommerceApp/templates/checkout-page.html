@@ -1,0 +1,209 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+
+      <div class="alert alert-danger" style="margin-top: 30px; display: none; text-align: center;" role="alert" id="error"></div>
+
+      <h2 class="my-5 h2 text-center">Your cart</h2>
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-8 col-12">
+          <!-- Heading -->
+            <div class="row">
+              {% for product in ordered_items %}
+                <!--Grid column-->
+                <div class="col-12 col-md-6 col-lg-4 mb-3" id="product_{{ product.id }}">
+
+                  <!--Card-->
+                  <div class="card">
+
+                    <!--Card image-->
+                    <div class="view overlay">
+                      <img src="{{ product.item.image_adress }}" class="card-img-top"
+                        alt="">
+                      <a href="{% url 'product' product.item.title %}">
+                        <div class="mask rgba-white-slight"></div>
+                      </a>
+                    </div>
+                    <!--Card image-->
+
+                      <!--Card content-->
+                    <div class="card-body">
+                      <!--Category & Title-->
+                      <h5 style="text-align: center;">
+                        <strong>
+                            <a href="{% url 'product' product.item.title %}" style="color: rgb(94, 60, 22)">{{ product.item.title }}</a>
+                        </strong>
+                      </h5>
+
+                        <div style="color: rgb(88, 85, 85); text-align: center;" id="price_{{ product.id }}">$<span>{% widthratio product.item.price 1 product.quantity %}</span></div>
+                        
+                        <div class="mt-2">
+                            <div class="t-2" style="text-align: center;">
+                                <div class="fa fa-1x" style="font-size: 22px;">| {{ product.size }} | </div>  
+
+                                <div class="fa fa-1x" style="font-size: 22px; margin-left: 1%;" id="quantity_{{ product.id }}">{{ product.quantity }} |</div>
+
+                            </div>
+                            
+                            <i class="fas fa-minus mr-3 fa-lg mt-2" style="float: left; cursor: pointer;" id="decrease_{{ product.id }}" data-id="{{ product.id }}"></i>
+
+                            <i class="fas fa-plus fa-lg mt-2" style="float: left; cursor: pointer;" id="increase_{{ product.id }}" data-id="{{ product.id }}"></i>
+
+                            <i class="fas fa-trash-alt fa-lg mt-2" style="float: right; cursor: pointer;" id="delete_{{ product.id }}" data-id="{{ product.id }}"></i>
+                        </div>
+
+                    </div>
+                    <!--Card content-->
+
+                  </div>
+                  <!--Card-->
+
+                </div>
+                <!--Grid column-->
+          {% endfor %}
+            </div>
+            
+        </div>
+        <!--Grid column-->
+        {% if ordered_items %}
+            <div class="col-md-4 col-12 mb-4">
+
+              <!-- Heading -->
+              <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Items selected</span>
+                <span class="badge badge-secondary badge-pill">{{ ordered_items.count }}</span>
+              </h4>
+
+              <!-- Cart -->
+              <ul class="list-group mb-3 z-depth-1">
+                {% for product in ordered_items %}
+                  <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                      <h6 class="my-0">{{ product.item.title }}</h6>
+                      <small class="text-muted">Size: {{ product.size }} | Quantity: <span id="quantity1_{{ product.id }}">{{ product.quantity }}</span></small>
+                    </div>
+                    <span class="text-muted">$<span id="price1_{{ product.id }}">{% widthratio product.item.price 1 product.quantity %}</span></span>
+                  </li>
+                {% endfor %}
+                
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                  <div class="text-success">
+                    <h6 class="my-0">Flash sale</h6>
+                  </div>
+                  <span class="text-success">-$<span id="promotion">10</span></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Total (USD)</span>
+                  <strong id="total"></strong>
+                </li>
+              </ul>
+              <!-- Cart -->
+
+            </div>
+            <!--Grid column-->
+          </div>
+        
+          <a href="{% url 'order' %}"><button class="btn btn-lg btn-block" type="submit" style="background-color:rgb(110, 71, 27); color: white;">Continue to checkout</button></a>
+        {% else %}
+          <div class="col-12 text-center">
+            Looks like your card is empty!
+          </div>
+        {% endif %}
+    </div>
+  </main>
+  <!--Main layout-->
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            function calcTotal() {
+              total = 0;
+              document.querySelectorAll("[id^='price1_']").forEach(span => {
+                  total = total + Number(span.innerHTML, 10);
+                  console.log(span.innerHTML);
+              })
+              total -= Number(document.querySelector("#promotion").innerHTML, 10);
+              document.querySelector("#total").innerHTML = `$${total}`;
+            }
+            calcTotal();
+
+            document.querySelectorAll("[id^='decrease_']").forEach(button => {
+                button.onclick = function() {
+                    let id = this.dataset.id;
+
+                    fetch(`/decrease/${id}`, {
+                        method: 'POST'
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+
+                        if(result.error) {
+                            document.querySelector("#error").innerHTML = result.error;
+                            document.querySelector("#error").style.display = "block";
+                        }
+                        else {
+                          price = document.querySelector(`#price_${id}`);
+                          quantity = document.querySelector(`#quantity_${id}`);
+
+                          price.innerHTML = `$${result.price}`; quantity.innerHTML = `${result.quantity} |`; document.querySelector(`#price1_${id}`).innerHTML = result.price; document.querySelector(`#quantity1_${id}`).innerHTML = result.quantity;
+                        }
+                    })
+                    .then(() => {calcTotal()})
+                }
+            })
+
+            document.querySelectorAll("[id^='increase_']").forEach(button => {
+                button.onclick = function() {
+                    let id = this.dataset.id;
+
+                    fetch(`/increase/${id}`, {
+                        method: 'POST'
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+
+                        if(result.error) {
+                            document.querySelector("#error").innerHTML = result.error;
+                            document.querySelector("#error").style.display = "block";
+                        }
+                        else {
+                          price = document.querySelector(`#price_${id}`);
+                          quantity = document.querySelector(`#quantity_${id}`);
+
+                          price.innerHTML = `$${result.price}`; quantity.innerHTML = `${result.quantity} |`; document.querySelector(`#price1_${id}`).innerHTML = `${result.price}`; document.querySelector(`#quantity1_${id}`).innerHTML = result.quantity;
+                        } 
+                    })
+                    .then(() => {calcTotal()})
+                }
+            })
+
+            document.querySelectorAll("[id^='delete_']").forEach(button => {
+                button.onclick = function() {
+                    let id = this.dataset.id;
+
+                    fetch(`/delete/${id}`, {
+                        method: 'POST'
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+
+                        if(result.error) {
+                            document.querySelector("#error").innerHTML = result.error;
+                            document.querySelector("#error").style.display = "block";
+                        }
+                        else if(result.success) {
+                            document.location.reload(true)
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+{% endblock %}

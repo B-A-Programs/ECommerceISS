@@ -53,7 +53,7 @@
             <p>{{ product.description }}</p>
 
             {% if request.user.is_authenticated %}
-              <form class="d-flex justify-content-left" action="" method="post">
+              <form class="d-flex justify-content-left" action="{% url 'add_item' product.id %}" method="post">
                 {% csrf_token %}
                 <!-- Default input -->
                 <select class="form-control mr-1" style="width: 100px;" name="size">

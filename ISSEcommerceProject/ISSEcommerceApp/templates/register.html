@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <main class="mt-5 pt-4">
+        <div class="container wow fadeIn"style="padding: 10px 30px; text-align: center;">
+            {% if success %}
+                <div class="alert alert-success" style="margin-top: 30px;" role="alert">{{ success }}</div>
+            {% else %}
+                {% if message %}
+                    <div class="alert alert-danger" style="margin-top: 30px;" role="alert">{{ message }}</div>
+                {% endif %}
+            {% endif %}
+            
+            <h1 class="m-3" style="text-align: center;"><strong>Register</strong></h1>
+
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="email">Email: </label>
+                        <input class="form-control" id="email" type="email" name="email" placeholder="ex: john_doe_71@anymail.dom" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="fname">First name: </label>
+                        <input class="form-control" id="fname" style="display: inline-block;" type="text" name="first_name" placeholder="ex: John" required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="lname">Last name: </label>
+                        <input class="form-control" id="lname" style="display: inline-block;" type="text" name="last_name" placeholder="ex: Doe" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="pass">Password: </label>
+                        <input id="pass" class="form-control" type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="passc">Confirm password: </label>
+                        <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password" required>
+                    </div>
+                </div>
+                <button class="btn btn-lg" style="padding: 12px 20px; background-color: rgb(110, 71, 27); color: white;" type="submit">Register</button>
+            </form>
+
+            Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+        </div>
+    </main>
+{% endblock %}

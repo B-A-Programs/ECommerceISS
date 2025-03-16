@@ -1,0 +1,10 @@
+{% autoescape off %}  
+Hi {{ user.first_name }} {{ user.last_name }}!
+
+This is your order confirmation from WeSellClothes.
+
+Your total is ${{ total|stringformat:".0f" }} and the items will be delivered to "{{ address }}" - {{ zip }}; {{ country }}, {{ county }}, {{ city }}.
+
+Items ordered: {% for item in ordered %}
+    - {{ item.item.title }} | Quantity: {{ item.quantity }} | Size: {{ item.size }} | Price(per piece): ${{ item.item.price|stringformat:".0f" }}{% endfor %}
+{% endautoescape %}  

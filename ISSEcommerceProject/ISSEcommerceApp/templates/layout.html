@@ -79,7 +79,7 @@
             <ul class="navbar-nav nav-flex-icons">
               {% if request.user.is_authenticated %}
                 <li class="nav-item mr-1">
-                    <a class="nav-link waves-effect" href="">
+                    <a class="nav-link waves-effect" href="{% url 'checkout' %}">
                     {% if request.user.items.exists %}
                       <span class="badge z-depth-1 mr-1" style="background-color: rgb(107, 79, 1)">Buy</span>
                     {% endif %}
@@ -88,14 +88,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link waves-effect" href="">Log out</a>
+                  <a class="nav-link waves-effect" href="{% url 'logout' %}">Log out</a>
                 </li>
               {% else %}
                 <li class="nav-item mr-1">
-                  <a class="nav-link waves-effect" href="">Log in</a>
+                  <a class="nav-link waves-effect" href="{% url 'login' %}">Log in</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link waves-effect" href="">Register</a>
+                  <a class="nav-link waves-effect" href="{% url 'register' %}">Register</a>
                 </li>
               {% endif %}
             </ul>
