@@ -1,0 +1,77 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="26.1.0">
+  <diagram name="Page-1" id="TA91ZreWmZzHGBM8d_jT">
+    <mxGraphModel dx="1050" dy="522" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-2" value="User" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-3" value="- firstName: String&lt;div&gt;- lastName: String&lt;/div&gt;&lt;div&gt;- username: String&lt;/div&gt;&lt;div&gt;- email: String&lt;/div&gt;&lt;div&gt;- password: String&lt;/div&gt;&lt;div&gt;- dateJoined: DateTime&lt;/div&gt;&lt;div&gt;- lastLogin: DateTime&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="gg3U6s2nsnJYhtxrGBEF-2">
+          <mxGeometry y="20" width="200" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-4" value="&amp;lt;&amp;lt;dataType&amp;gt;&amp;gt;&lt;div&gt;DateTime&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="730" y="100" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-5" value="- sec: Integer&lt;div&gt;- min: Integer&lt;/div&gt;&lt;div&gt;- ore: Integer&lt;/div&gt;&lt;div&gt;- zi: integer&lt;/div&gt;&lt;div&gt;- luna: integer&lt;/div&gt;&lt;div&gt;- an: integer&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="gg3U6s2nsnJYhtxrGBEF-4">
+          <mxGeometry y="30" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-6" value="Item" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="240" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-7" value="- title: String&lt;div&gt;- imageAdress: string&lt;/div&gt;&lt;div&gt;- price: Float&lt;/div&gt;&lt;div&gt;- description: String&lt;/div&gt;&lt;div&gt;- category: Category&lt;/div&gt;&lt;div&gt;- label: Label&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="gg3U6s2nsnJYhtxrGBEF-6">
+          <mxGeometry y="20" width="200" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-11" value="&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;div&gt;Category&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="730" y="280" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-12" value="Shirts, Sport Wear, Out Wear" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="gg3U6s2nsnJYhtxrGBEF-11">
+          <mxGeometry y="30" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-13" value="&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;div&gt;Label&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="730" y="390" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-14" value="Danger, Primary" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="gg3U6s2nsnJYhtxrGBEF-13">
+          <mxGeometry y="30" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-15" value="" style="endArrow=none;html=1;rounded=0;entryX=0.556;entryY=-0.002;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="gg3U6s2nsnJYhtxrGBEF-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="240" as="sourcePoint" />
+            <mxPoint x="600" y="230" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="130" y="160" />
+              <mxPoint x="600" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-16" value="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="210" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-17" value="Client" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="210" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-18" value="OrderedItem" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="210" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-19" value="0..*" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="600" y="210" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-20" value="Ordered Items ==&amp;gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="130" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-21" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="340" as="sourcePoint" />
+            <mxPoint x="360" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-22" value="Ordered Items" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="265" y="340" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="gg3U6s2nsnJYhtxrGBEF-23" value="- size: Strings&lt;div&gt;- quantity: Integer&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="gg3U6s2nsnJYhtxrGBEF-22">
+          <mxGeometry y="20" width="200" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
