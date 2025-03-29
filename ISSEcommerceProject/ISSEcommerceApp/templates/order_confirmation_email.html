@@ -1,10 +1,110 @@
-{% autoescape off %}  
-Hi {{ user.first_name }} {{ user.last_name }}!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      background-color: #4CAF50;
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 8px 8px 0 0;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    .order-summary {
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+    .order-item {
+      padding: 5px 0;
+      border-bottom: 1px solid #f4f4f4;
+    }
+    .order-item:last-child {
+      border-bottom: none;
+    }
+    .total-price {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    .address, .footer {
+      font-size: 14px;
+      color: #555;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
 
-This is your order confirmation from WeSellClothes.
+  <div class="container">
+    <div class="header">
+      <h1>Order Confirmation</h1>
+    </div>
 
-Your total is ${{ total|stringformat:".0f" }} and the items will be delivered to "{{ address }}" - {{ zip }}; {{ country }}, {{ county }}, {{ city }}.
+    <div class="section">
+      <h3>Hello {{ user.first_name }} {{ user.last_name }},</h3>
+      <p>Thank you for your order! We're excited to confirm your purchase from WeSellClothes.</p>
+    </div>
 
-Items ordered: {% for item in ordered %}
-    - {{ item.item.title }} | Quantity: {{ item.quantity }} | Size: {{ item.size }} | Price(per piece): ${{ item.item.price|stringformat:".0f" }}{% endfor %}
-{% endautoescape %}  
+    <div class="section">
+      <p><strong>Total:</strong> ${{ total|stringformat:".0f" }}</p>
+      <p><strong>Delivery Address:</strong></p>
+      <p>{{ address }} - {{ zip }}<br>{{ country }}, {{ county }}, {{ city }}</p>
+    </div>
+
+    <div class="section order-summary">
+      <h3>Items Ordered:</h3>
+      <ul>
+        {% for item in ordered %}
+          <li class="order-item">
+            <strong>{{ item.item.title }}</strong><br>
+            Quantity: {{ item.quantity }} | Size: {{ item.size }} | Price: ${{ item.item.price|stringformat:".0f" }} (per piece)
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="total-price">
+      <p><strong>Total Order Amount:</strong> ${{ total|stringformat:".0f" }}</p>
+    </div>
+
+    <div class="footer">
+      <p>If you have any questions, feel free to contact us at <a href="mailto:support@wesellclothes.com">support@wesellclothes.com</a>.</p>
+      <p>Thank you for shopping with us!</p>
+    </div>
+
+  </div>
+
+</body>
+</html>

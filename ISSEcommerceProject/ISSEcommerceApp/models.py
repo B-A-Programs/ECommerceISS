@@ -15,6 +15,7 @@ LABEL_CHOICES = (
 
 class User(AbstractUser):
     class Meta:
+        app_label = 'ISSEcommerceApp'
         ordering = ['-id']
 
 

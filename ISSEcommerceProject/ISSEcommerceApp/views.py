@@ -18,13 +18,18 @@ from .models import User, Item, OrderedItem
 
 
 def index(request):
-    if request.GET.get("type") != None:
-        type = request.GET.get("type")
-        paginator = Paginator(Item.objects.filter(category=type), 8)
-    else:
-        type = None
-        paginator = Paginator(Item.objects.all(), 8)
+    title_filter = request.GET.get("title", "")  # Get the title filter, default to empty string
+    type_filter = request.GET.get("type", None)  # Get the type filter
 
+    # Filter items based on type and title
+    items = Item.objects.all()
+    if type_filter:
+        items = items.filter(category=type_filter)
+
+    if title_filter:
+        items = items.filter(title__icontains=title_filter)  # Filter items that contain the title
+
+    paginator = Paginator(items, 8)  # Paginate the filtered items
     page_range = paginator.page_range
 
     if request.GET.get("page") != None:
@@ -38,9 +43,10 @@ def index(request):
 
     return render(request, 'home-page.html', {
         'products': paginator,
-        'type': type,
+        'type': type_filter,
         'page_range': page_range,
-        'page': page
+        'page': page,
+        'title_filter': title_filter  # Pass the title filter to the template for the input field
     })
 
 
@@ -115,6 +121,7 @@ def order(request):
             total += item.quantity * item.item.price
 
         mail_subject = 'WeSellClothes order confirmation'
+
         message = render_to_string('order_confirmation_email.html', {
             'ordered': ordered,
             'country': country,
@@ -125,10 +132,16 @@ def order(request):
             'total': total,
             'city': city
         })
-        email1 = EmailMessage(
-            mail_subject, message, to=[request.user.email]
+
+        email = EmailMessage(
+            subject=mail_subject,
+            body=message,
+            from_email='your_email@example.com',  # Replace with your email
+            to=[request.user.email]
         )
-        email1.send()
+        email.content_subtype = "html"
+
+        email.send()
 
         for item in ordered:
             item.delete()

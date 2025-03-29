@@ -151,36 +151,47 @@
             {% else %}
               <li class="nav-item">
             {% endif %}
-                <a class="nav-link" href="{% url 'index' %}">All</a>
-            </li>
-
+                <a class="nav-link" href="{% url 'index' %}?{% for key, value in request.GET.items %}{% if key != 'type' %}{{ key }}={{ value }}&{% endif %}{% endfor %}">All</a>
+              </li>
+        
             {% if type == "S" %}
               <li class="nav-item active">
             {% else %}
               <li class="nav-item">
             {% endif %}
-                <a class="nav-link selected" href="?type=S">Shirts</a>
+                <a class="nav-link selected" href="{% url 'index' %}?type=S{% for key, value in request.GET.items %}{% if key != 'type' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Shirts</a>
               </li>
-
+        
             {% if type == "SW" %}
               <li class="nav-item active">
             {% else %}  
               <li class="nav-item">
             {% endif %}
-                <a class="nav-link" href="?type=SW">Sport wears</a>
+                <a class="nav-link" href="{% url 'index' %}?type=SW{% for key, value in request.GET.items %}{% if key != 'type' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Sport wears</a>
               </li>
-
+        
             {% if type == "OW" %}
               <li class="nav-item active">
             {% else %}  
               <li class="nav-item">
             {% endif %}    
-                <a class="nav-link" href="?type=OW">Outwears</a>
+                <a class="nav-link" href="{% url 'index' %}?type=OW{% for key, value in request.GET.items %}{% if key != 'type' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Outwears</a>
               </li>
-
+        
           </ul>
           <!-- Links -->
-
+        
+          <!-- Title Filter Form -->
+          <form class="form-inline ml-2" method="GET" action="{% url 'index' %}">
+            {% for key, value in request.GET.items %}
+              {% if key != 'title' %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+              {% endif %}
+            {% endfor %}
+            <input class="form-control mr-2" type="text" name="title" placeholder="Search by title" value="{{ title_filter }}">
+            <button class="btn btn-outline my-2 my-sm-0" style="box-shadow: none; color: white;" type="submit">Search</button>
+          </form>
+        
         </div>
         <!-- Collapsible content -->
 
@@ -199,6 +210,23 @@
 
               <!--Card-->
               <div class="card">
+                {% if product.label != null %}
+                    {% if product.label == "N" %}
+                      <span class="badge badge-pill" style="background-color: rgb(185, 53, 44); border-radius: 0;">
+                        New
+                      </span>
+                    {% else %} 
+                      {% if product.label == "B" %}
+                      <span class="badge badge-pill" style="background-color: rgb(167, 89, 0); border-radius: 0;">
+                        Best seller
+                      </span>
+                      {% endif %}
+                    {% endif %}
+                {% else %}
+                    <span class="badge badge-pill" style="color: white; box-shadow: none; border-radius: 0;">
+                      safsa
+                    </span>
+                {% endif %}
 
                 <!--Card image-->
                 <div class="view overlay">
@@ -216,21 +244,7 @@
                   <h5>{{ product.get_category_display }}</h5>
                   <h5>
                     <strong>
-                        <a href="{% url 'product' product.title %}" style="color:rgb(133, 95, 51);">{{ product.title }}
-                          {% if product.label != null %}
-                              {% if product.label == "N" %}
-                                <span class="badge badge-pill" style="background-color: rgb(185, 53, 44);">
-                                  New
-                                </span>
-                              {% else %} 
-                                {% if product.label == "B" %}
-                                <span class="badge badge-pill" style="background-color: rgb(167, 89, 0);">
-                                  Best seller
-                                </span>
-                                {% endif %}
-                              {% endif %}
-                          {% endif %}
-                        </a>
+                        <a href="{% url 'product' product.title %}" style="color:rgb(133, 95, 51);">{{ product.title }}</a>
                     </strong>
                   </h5>
 
