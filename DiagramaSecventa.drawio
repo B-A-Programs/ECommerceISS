@@ -59,11 +59,11 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Nv0X5gPcUVi4LS4XWQZS-21" value="3:products=&lt;div&gt;Product.filter(urlParams.filters)&lt;br&gt;&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=horizontal;curved=0;rounded=0;exitX=0.547;exitY=0.392;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="Nv0X5gPcUVi4LS4XWQZS-9" target="Nv0X5gPcUVi4LS4XWQZS-12" edge="1">
-          <mxGeometry x="0.0032" relative="1" as="geometry">
+          <mxGeometry x="0.4114" relative="1" as="geometry">
             <mxPoint x="390" y="1030" as="sourcePoint" />
             <Array as="points" />
             <mxPoint x="540" y="1040" as="targetPoint" />
-            <mxPoint as="offset" />
+            <mxPoint x="-1" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Nv0X5gPcUVi4LS4XWQZS-24" value="4:SQLQuery" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=horizontal;curved=0;rounded=0;" parent="1" source="Nv0X5gPcUVi4LS4XWQZS-12" target="Nv0X5gPcUVi4LS4XWQZS-23" edge="1">

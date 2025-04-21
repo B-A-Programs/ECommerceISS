@@ -81,7 +81,7 @@
                 <li class="nav-item mr-1">
                     <a class="nav-link waves-effect" href="{% url 'checkout' %}">
                     {% if request.user.items.exists %}
-                      <span class="badge z-depth-1 mr-1" style="background-color: rgb(107, 79, 1)">Buy</span>
+                      <span class="badge z-depth-1 mr-1" style="background-color: rgb(107, 79, 1)">Buy ({{ request.user.items.count }})</span>
                     {% endif %}
                     <i class="fas fa-shopping-cart"></i>
                     <span class="clearfix d-none d-sm-inline-block"> Cart </span>
